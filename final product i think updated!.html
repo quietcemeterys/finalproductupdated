@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Day</title>
+    <style>
+        
+        body {
+            background-color: rgb(255, 255, 255); /* Change the background color */
+            color: rgb(247, 216, 233); /* Change the text color */
+            font-family: 'Times New Roman', sans-serif; /* Change the font */
+            font-size: 15px; /* Change the font size */
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 2s ease-in;
+            overflow: hidden; /* Allow scrollbars */
+
+        }
+        div {
+            text-align: center;
+            vertical-align: middle;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #buttonContainer {
+            display: flex;
+            justify-content: center;
+            gap: 10px; /* Space between buttons */
+        }   
+        #topImage {
+            max-width: 100%; /* Ensure the image fits within the container */
+            height: auto;
+            margin-bottom: 30px; /* Add some space below the image */
+        }
+        #question {
+            color: rgb(184, 138, 108); /* Change the color */
+            font-family: 'Times New Roman', sans-serif; /* Change the font */
+            font-size: 35px; /* Change the font size */
+            animation: fadeIn 3s ease-in;
+        }
+        #yesButton, #noButton {
+            background-color: rgb(184, 138, 108); /* Change the color */
+            border: rgb(0, 0, 0); /* Change the border color */
+            color: white;
+            padding: 6px 13px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 25px;
+            font-family: 'Times New Roman', sans-serif;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 7px;
+            transition: background-color 0.3s; /* Smooth transition */
+        }
+        #yesButton:hover, #noButton:hover {
+            background-color:rgb(163, 129, 107); /* Change color on hover */
+        }
+        #noButton {
+            position: relative;
+        }
+        #myVideo {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+        }
+        /* Modal styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1001; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* Enable scroll if needed */
+            background-color: rgb(0,0,0,0); /* Fallback color */
+            background-color: rgba(0, 0,0,0); 
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; 
+            text-align: center;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: rgb(0, 0, 0);
+            text-decoration: none;
+            cursor: pointer;
+        }
+        footer {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes fall {
+            0% { transform: translateY(-100vh); }
+            100% { transform: translateY(calc(100vh - 50px)); }
+        }
+        .heart {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: url('https://gallerypngs.com/wp-content/uploads/2024/12/Rilakkuma-And-Korilakkuma-Png-Picture-750x634.png') no-repeat center center;
+            background-size: contain;
+            animation: fall 20s linear infinite;
+            cursor: grab;
+            transition: transform 0.2s, background-color 0.2s;
+           
+        }
+        .heart:active {
+            cursor: grabbing;
+            
+        }
+        .topImage {
+            position: absolute;
+            width: 10px;
+            height: 10x;
+            background: url('https://i.gifer.com/C5nE.gif') no-repeat center center;
+            size : 10px;
+         
+        }
+
+    </style>
+</head>
+<body>
+    <div>
+        <img id="topImage" src="https://i.gifer.com/C5nE.gif" alt="Gif description">
+        <h1 id="question"> would you like to be my valentine? </h1>
+        <div id="buttonContainer">
+            <button id="yesButton">yes!!</button>
+            <button id="noButton">no ew</button>
+        </div>
+        <div id="countdown"></div>
+    </div>
+    <iframe id="myVideo" src="https://www.youtube.com/embed/hveax33qCec" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>YIPEEEEEEE</p>
+        </div>
+    </div>
+    <audio id="backgroundMusic" loop autoplay>
+        <source src="Untitled video (7).mp3" type="audio/mpeg">
+        <source src="path/to/your/music.ogg" type="audio/ogg">
+        <source src="path/to/your/music.wav" type="audio/wav">
+        Your browser does not support the audio element.
+    </audio>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+    <script>
+        document.getElementById("yesButton").addEventListener("click", function() {
+            confetti({
+                particleCount: 200,
+                spread: 200,
+                origin: { y: 0.5},
+                colors: ['#FFC0CB', '#FFFFFF','#967864','#FFFFFF']
+            });
+            showAlert();
+        });
+        document.getElementById("yesButton").addEventListener("click", function() {
+            var music = document.getElementById("backgroundMusic");
+            music.play();
+        });
+
+        document.getElementById("yesButton").addEventListener("click", function() {
+            var music = document.getElementById("backgroundMusic");
+            music.play();
+        });
+
+        document.getElementById("yesButton").addEventListener("click", showAlert);
+        function showAlert() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "block";
+            var span = document.getElementsByClassName("close")[0];
+            span.onclick = function() {
+                modal.style.display = "none";
+                showVideo();
+            }
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                    showVideo();
+                }
+            }
+        }
+
+        function showVideo() {
+            var video = document.getElementById("myVideo");
+            if (video) {
+                console.log("Video element found");
+            } else {
+                console.error("Video element not found");
+                return;
+            }
+            document.body.innerHTML = ''; 
+            document.body.appendChild(video);
+            console.log("Video element appended to body");
+            video.style.display = "block";
+            console.log("Video display set to block");
+        }
+
+        var noButton = document.getElementById("noButton");
+        noButton.addEventListener("click", enableMove);
+
+        function enableMove() {
+            noButton.style.position = "absolute"; 
+            noButton.addEventListener("mouseover", change);
+        }
+
+        function change() {
+            var i = Math.floor(Math.random() * (window.innerWidth - noButton.offsetWidth));
+            var j = Math.floor(Math.random() * (window.innerHeight - noButton.offsetHeight));
+            noButton.style.left = i + "px";
+            noButton.style.top = j + "px";
+        }
+        
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+            heart.style.width = Math.random() * 50 + 50 + 'px'; // Random width between 50px and 100px
+            heart.style.height = heart.style.width; // Keep height equal to width
+            heart.addEventListener('animationend', () => {
+                heart.style.animation = 'none';
+                heart.style.bottom = '0';
+                heart.style.transform = 'translateY(0)';
+                heart.style.position = 'absolute';
+                heart.style.left = heart.offsetLeft + 'px';
+                makeDraggable(heart);
+            });
+            heart.addEventListener('click', () => {
+                heart.style.transform = 'scale(1.5) rotate(20deg)';
+                heart.style.backgroundColor = 'rgb(255, 195, 235)';
+                setTimeout(() => {
+                    heart.style.transform = 'scale(1) rotate(0deg)';
+                    heart.style.backgroundColor = '';
+                }, 500);
+            });
+            document.body.appendChild(heart);
+        }
+        setInterval(createHeart, 4000);
+
+        function makeDraggable(element) {
+            let isDragging = false;
+            let offsetX, offsetY;
+
+            element.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                offsetX = e.clientX - element.getBoundingClientRect().left;
+                offsetY = e.clientY - element.getBoundingClientRect().top;
+                element.style.cursor = 'grabbing';
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (isDragging) {
+                    element.style.left = e.clientX - offsetX + 'px';
+                    element.style.top = e.clientY - offsetY + 'px';
+                }
+            });
+
+            document.addEventListener('mouseup', () => {
+                isDragging = false;
+                element.style.cursor = 'grab';
+            });
+        }
+    
+    </script>
+    <footer>
+        <p>made with love by [meii] </p>
+    </footer>
+</body>
+</html>
